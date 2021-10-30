@@ -1,0 +1,155 @@
+﻿@model IEnumerable<StorePanel.Web.ViewModels.ProductWithPriceViewModel>
+
+@{
+    ViewData["Title"] = "فروشگاه";
+}
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">فروشگاه<span></span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">فروشگاه</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="container">
+            @if (Model.Any())
+            {
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="toolbox">
+                            <div class="toolbox-left">
+                                <div class="toolbox-info">
+                                    نمایش <span>@Model.Count() از @ViewBag.All </span> محصول
+                                </div><!-- End .toolbox-info -->
+                            </div><!-- End .toolbox-left -->
+
+                            <div class="toolbox-right">
+                                <div class="toolbox-sort">
+                                    <label for="sortby">مرتب سازی براساس : </label>
+                                    <div class="select-custom">
+                                        <select name="sortby" id="sortby" class="form-control">
+                                            <option value="Last">تازه ترین ها</option>
+                                            <option value="Name">نام</option>
+                                            <option value="Price">قیمت</option>
+                                        </select>
+                                    </div>
+                                </div><!-- End .toolbox-sort -->
+                            </div><!-- End .toolbox-right -->
+                        </div>
+
+                        <div class="products mb-3">
+                            <div class="row justify-content-center">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-7 text-center">
+                                            <figure class="product-media">
+                                                <a href="/shop/detail/@item.Id">
+                                                    <img src="/UploadedFiles/Images/@item.Image" alt="@item.ShortTitle"
+                                                         class="product-image">
+                                                </a>
+
+                                                <div class="product-action-vertical">
+                                                    <a href="#"
+                                                       class="btn-product-icon btn-wishlist btn-expandable">
+                                                        <span>
+                                                            افزودن
+                                                            به لیست علاقه مندی
+                                                        </span>
+                                                    </a>
+
+                                                </div><!-- End .product-action-vertical -->
+
+                                                <div class="product-action">
+                                                    <a onclick="AddToCart(@item.Id,1)" class="btn-product btn-cart">
+                                                        <span>
+                                                            افزودن به
+                                                            سبد خرید
+                                                        </span>
+                                                    </a>
+                                                </div><!-- End .product-action -->
+                                            </figure><!-- End .product-media -->
+
+                                            <div class="product-body">
+                                                <div class="product-cat text-center">
+                                                    <a href="#">@item.ProductGroup</a>
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title text-center">
+                                                    <a href="/shop/detail/@item.Id">
+                                                        @item.ShortTitle
+                                                    </a>
+                                                </h3><!-- End .product-title -->
+
+                                                <div class="product-price">
+                                                    @item.Price
+                                                    تومان
+                                                </div><!-- End .product-price -->
+
+
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
+                                    </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                }
+                            </div><!-- End .row -->
+                        </div><!-- End .products -->
+
+                        <pager link-url="/shop/index" page="@ViewBag.PageID" page-size="@ViewBag.PageSize" skip-forward-back-navigation="Disabled" first-last-navigation="Disabled" previous-page-text="قبل" next-page-text="بعد" total-items="@ViewBag.All"></pager>
+
+                    </div><!-- End .col-lg-9 -->
+                    <aside class="col-lg-3 order-lg-first">
+                        <div class="sidebar sidebar-shop">
+                            <div class="widget widget-clean">
+                                <label>فیلترها : </label>
+                                <a href="#" class="sidebar-filter-clear">پاک کردن همه</a>
+                            </div><!-- End .widget widget-clean -->
+                            @await Component.InvokeAsync("ProductsCategory")
+
+                        </div><!-- End .sidebar sidebar-shop -->
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            }
+            else
+            {
+                <h2 class="text-danger mx-auto text-center">
+                    متاسفانه موردی وجود ندارد!
+                </h2>
+            }
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+@section scripts{
+    <script>
+        document.getElementById('sortby').addEventListener('change', function () {
+            val = $("#sortby").val();
+
+            console.log(val)
+
+            if (val === 'Last') {
+                window.location.href = "/Shop/index/";
+            }
+
+            if (val === 'Price') {
+                window.location.href = "/Shop/Price/";
+            }
+
+            if (val === 'Name') {
+                window.location.href = "/Shop/Name/";
+            }
+
+        });
+
+    </script>
+}

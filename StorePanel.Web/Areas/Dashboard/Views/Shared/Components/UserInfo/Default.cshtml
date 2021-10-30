@@ -1,0 +1,22 @@
+﻿@model StorePanel.Core.Models.User
+
+    <li class="nav-item dropdown">
+        <a href="#" data-toggle="dropdown">
+            <figure class="avatar avatar-sm avatar-state-success">
+                <img class="rounded-circle" src="/UploadedFiles/Images/@(Model?.Avatar??"user-avatar.png")" alt="@($"{Model.FirstName} {Model.LastName}")">
+            </figure>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a asp-area="Dashboard" asp-controller="Users" asp-action="EditMyProfile" class="dropdown-item">پروفایل</a>
+            <div class="dropdown-divider"></div>
+            <form id="logoutForm" class="form-inline" asp-area="" asp-action="LogOff" asp-controller="Auth" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit"
+                        style="cursor:pointer"
+                        class="text-danger dropdown-item">
+                    خروج
+                </button>
+            </form>
+        </div>
+    </li>
+
+

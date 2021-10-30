@@ -1,0 +1,100 @@
+﻿@model StorePanel.Core.Models.StaticContent
+
+@{
+    ViewData["Title"] = "درباره ما";
+}
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">درباره ما<span></span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">درباره ما</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="about-text text-center mt-3">
+                        <h2 class="title text-center mb-2">
+                            @Model.AboutUsTitle
+                        </h2><!-- End .title text-center mb-2 -->
+                        <p class="text-center">
+                            @Model.AboutUsDescription
+                        </p>
+
+                    </div><!-- End .about-text -->
+                </div><!-- End .col-lg-10 offset-1 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+
+        <div class="mb-2"></div><!-- End .mb-2 -->
+
+        <div class="bg-image pt-7 pb-5 pt-md-12 pb-md-9"
+             style="background-image: url(/assets/images/backgrounds/bg-4.jpg);background-position-y:bottom;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <div class="count-container text-center">
+                            <div class="count-wrapper text-white">
+                                <span class="count" data-from="0" data-to="@Model.Counter1Num" data-speed="3000"
+                                      data-refresh-interval="50">0</span>
+                            </div><!-- End .count-wrapper -->
+                            <h3 class="count-title text-white">
+                                @Model.Counter1Title
+                            </h3><!-- End .count-title -->
+                        </div><!-- End .count-container -->
+                    </div><!-- End .col-6 col-md-3 -->
+
+                    <div class="col-6 col-md-3">
+                        <div class="count-container text-center">
+                            <div class="count-wrapper text-white">
+                                <span class="count" data-from="0" data-to="@Model.Counter2Num" data-speed="3000"
+                                      data-refresh-interval="50">0</span>
+                            </div><!-- End .count-wrapper -->
+                            <h3 class="count-title text-white">
+                                @Model.Counter2Title
+                            </h3><!-- End .count-title -->
+                        </div><!-- End .count-container -->
+                    </div><!-- End .col-6 col-md-3 -->
+
+                    <div class="col-6 col-md-3">
+                        <div class="count-container text-center">
+                            <div class="count-wrapper text-white">
+                                <span class="count" data-from="0" data-to="@Model.Counter3Num" data-speed="3000"
+                                      data-refresh-interval="50">0</span>
+                            </div><!-- End .count-wrapper -->
+                            <h3 class="count-title text-white">
+                                @Model.Counter3Title
+                            </h3><!-- End .count-title -->
+                        </div><!-- End .count-container -->
+                    </div><!-- End .col-6 col-md-3 -->
+
+                    <div class="col-6 col-md-3">
+                        <div class="count-container text-center">
+                            <div class="count-wrapper text-white">
+                                <span class="count" data-from="0" data-to="@Model.Counter4Num" data-speed="3000"
+                                      data-refresh-interval="50">0</span>
+                            </div><!-- End .count-wrapper -->
+                            <h3 class="count-title text-white">
+                                @Model.Counter4Title
+                            </h3><!-- End .count-title -->
+                        </div><!-- End .count-container -->
+                    </div><!-- End .col-6 col-md-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .bg-image pt-8 pb-8 -->
+
+        @await Component.InvokeAsync("BrandsAboutus")
+
+    </div><!-- End .page-content -->
+</main><!-- End .main -->

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<StorePanel.Core.Models.ProductGroup>
+
+
+@if (Model.Any())
+{
+
+    <div class="widget widget-collapsible">
+        <h3 class="widget-title">
+            <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true"
+               aria-controls="widget-1">
+                دسته بندی
+            </a>
+        </h3><!-- End .widget-title -->
+
+        <div class="collapse show" id="widget-1">
+            <div class="widget-body">
+                <div class="filter-items filter-items-count">
+
+                    @foreach (var item in Model)
+                    {
+                        <a href="/shop/index?ProductGroupId=@item.Id" class="filter-item">
+                            <div class="custom-control custom-checkbox">
+                                <label class="custom-control-label" for="cat-@item.Id">
+                                    @item.Title
+                                </label>
+                            </div><!-- End .custom-checkbox -->
+                            <span class="item-count">
+                                @if (item.Products != null)
+                                {
+                                    @item.Products.Count()
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                }
+                            </span>
+                        </a><!-- End .filter-item -->
+                    }
+
+                </div><!-- End .filter-items -->
+            </div><!-- End .widget-body -->
+        </div><!-- End .collapse -->
+    </div><!-- End .widget -->
+}

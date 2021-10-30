@@ -1,0 +1,53 @@
+﻿@model StorePanel.Core.Models.StaticContent
+
+<div class="page-content">
+    <div class="col-12 d-flex mb-5">
+        <div class="bg-white w-100 mapincontact">
+            @Html.Raw(Model.Map)
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contact-box text-center">
+                    <h3>آدرس</h3>
+
+                    <address>
+                        @Model.Address
+                    </address>
+                </div><!-- End .contact-box -->
+            </div><!-- End .col-md-4 -->
+
+            <div class="col-md-4">
+                <div class="contact-box text-center">
+                    <h3>اطلاعات تماس</h3>
+
+                    <div><a href="mailto:@Model.Email">@Model.Email</a></div>
+                    <div><a href="tel:@Model.Phone">@Model.Phone</a> , <a href="tel:@Model.Mobile">@Model.Mobile</a></div>
+                </div><!-- End .contact-box -->
+            </div><!-- End .col-md-4 -->
+
+            <div class="col-md-4">
+                <div class="contact-box text-center">
+                    <h3>شبکه های اجتماعی</h3>
+
+                    <div class="social-icons social-icons-color justify-content-center">
+                        <a href="https://@Model.Telegram" class="social-icon social-facebook" title="تلگرام" target="_blank">
+                            <i class="icon-facebook-f"></i>
+                        </a>
+                        <a href="https://@Model.Twitter" class="social-icon social-twitter" title="توییتر" target="_blank">
+                            <i class="icon-twitter"></i>
+                        </a>
+                        <a href="https://@Model.Instagram" class="social-icon social-instagram" title="اینستاگرام"
+                           target="_blank"><i class="icon-instagram"></i></a>
+
+                        <a href="https://@Model.WhatsApp" class="social-icon social-youtube" title="واتس اپ" target="_blank">
+                            <i class="icon-youtube"></i>
+                        </a>
+                    </div><!-- End .soial-icons -->
+                </div><!-- End .contact-box -->
+            </div><!-- End .col-md-4 -->
+        </div><!-- End .row -->
+    </div>
+
+</div><!-- End .page-content -->

@@ -1,0 +1,75 @@
+﻿@model StorePanel.Web.ViewModels.ViewInvoiceViewModel
+
+@{
+    ViewData["Title"] = "سفارشات";
+}
+<input type="hidden" id="nav_active" value="faq_control">
+<input type="hidden" id="nav_item_active" value="faqs">
+
+
+<div class="page-header">
+    <div>
+        <h3>@ViewData["Title"]</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index">داشبورد</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                @ViewData["Title"]
+            </h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <p>دریافت کننده: @Model.Invoice.CustomerName</p>
+        <p>شماره سفارش: @Model.Invoice.InvoiceNumber</p>
+        <p>تاریخ ثبت سفارش: @Model.PersianDate</p>
+        <p>آدرس: @Model.Invoice.Address</p>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>محصول</th>
+                    <th>مبلغ</th>
+                    <th>تعداد</th>
+                    <th>مبلغ کل</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.InvoiceItems)
+                {
+                    <tr>
+                        <td>@item.InvoiceItem.Product.Title (@item.MainFeature)</td>
+                        <td>@item.InvoiceItem.Price تومان</td>
+                        <td>@item.InvoiceItem.Quantity</td>
+                        <td>@item.InvoiceItem.TotalPrice تومان</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <table id="datatable" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>دریافت کننده</th>
+                    <th>شماره تلفن</th>
+                    <th>تاریخ</th>
+                    <th>مبلغ کل</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="font-weight-bolder">
+                    <td>@Model.Invoice.CustomerName</td>
+                    <td>@Model.Invoice.Phone</td>
+                    <td>@Model.PersianDate</td>
+                    <td class="text-danger font-size-h3 font-weight-boldest">@Model.Invoice.TotalPrice تومان</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

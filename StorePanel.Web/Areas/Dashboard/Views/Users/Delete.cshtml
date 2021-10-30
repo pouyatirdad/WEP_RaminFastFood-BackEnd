@@ -1,0 +1,27 @@
+﻿@model StorePanel.Core.Models.User
+<input type="hidden" id="title" value="حذف کاربر" />
+
+<h4 class="card-label">
+    آیا مطمئن هستید که می خواهید این رکورد را حذف کنید؟
+</h4>
+<dl class="row" style="padding-top:10px">
+    <dt class="col-sm-4">
+        عنوان
+    </dt>
+    <dd class="col-sm-8">
+        @Model.FirstName @Model.LastName
+    </dd>
+    @*<dt class="col-sm-4">
+        @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-8">
+        @Html.DisplayFor(model => model.Description)
+        </dd>*@
+</dl>
+<div style="float:left">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="حذف" class="btn btn-danger mr-2" />
+    }
+</div>

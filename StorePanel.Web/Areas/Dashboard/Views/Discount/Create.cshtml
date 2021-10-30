@@ -1,0 +1,86 @@
+﻿@model StorePanel.Web.Areas.Dashboard.ViewModels.DiscountFormViewModel
+@{
+    ViewData["Title"] = "افزودن تخفیف";
+}
+<input type="hidden" id="nav_active" value="article_control">
+<input type="hidden" id="nav_item_active" value="articles">
+<div class="page-header">
+    <div>
+        <h3>@ViewData["Title"]</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index">داشبورد</a></li>
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Articles" asp-action="Index">مطالب</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="col-xl-8">
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div style="margin-top:20px">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>نوع تخفیف</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="DiscountType" name="DiscountType">
+                                        <option value="1">درصد</option>
+                                        <option value="2">مقدار</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Amount" class="control-label"></label>
+                                <input asp-for="Amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="OfferId" class="control-label"></label>
+                                <select class="js-example-basic-single" dir="rtl" asp-items="ViewBag.Offers" asp-for="OfferId">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BrandIds" class="control-label">برند ها</label>
+                                <select class="js-example-basic-single" multiple dir="rtl" asp-items="ViewBag.Brands" asp-for="BrandIds">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProductGroupIds" class="control-label">دسته ها</label>
+                                <select class="js-example-basic-single" multiple dir="rtl" asp-items="ViewBag.ProductGroups" asp-for="ProductGroupIds">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProductIds" class="control-label">محصولات</label>
+                                <select class="js-example-basic-single" multiple dir="rtl" asp-items="ViewBag.Products" asp-for="ProductIds">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">انصراف</a>
+                    <input type="submit" value="ثبت" class="btn btn-primary mr-2" style="float:left" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/config.js"></script>
+}

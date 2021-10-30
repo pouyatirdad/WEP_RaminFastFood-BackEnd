@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "خانه";
+}
+
+<main class="main">
+    @await Component.InvokeAsync("Slider")
+
+    @await Component.InvokeAsync("Brands")
+
+    <div class="mb-3 mb-lg-5"></div><!-- End .mb-3 mb-lg-5 -->
+
+    <div class="mb-3"></div><!-- End .mb-6 -->
+
+    <div class="container">
+        <ul class="nav nav-pills nav-border-anim nav-big justify-content-center mb-3" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="products-featured-link" data-toggle="tab"
+                   href="#products-featured-tab" role="tab" aria-controls="products-featured-tab"
+                   aria-selected="true">
+                    تخفیف دار
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="products-sale-link" data-toggle="tab" href="#products-sale-tab"
+                   role="tab" aria-controls="products-sale-tab" aria-selected="false">بیشترین فروش</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="products-top-link" data-toggle="tab" href="#products-top-tab" role="tab"
+                   aria-controls="products-top-tab" aria-selected="false">بیشترین امتیاز</a>
+            </li>
+        </ul>
+    </div><!-- End .container -->
+
+    <div class="container-fluid">
+        <div class="tab-content tab-content-carousel">
+            @await Component.InvokeAsync("ProductWithOffer")
+            @await Component.InvokeAsync("TopSold")
+            @await Component.InvokeAsync("HighestRateProducts")
+        </div><!-- End .tab-content -->
+    </div><!-- End .container-fluid -->
+
+
+
+    <div class="mb-6"></div><!-- End .mb-6 -->
+
+    <div class="container">
+        <div class="heading heading-center mb-3">
+            <h2 class="title text-center">محصولات اخیر</h2><!-- End .title -->
+            @await Component.InvokeAsync("NewestProduct")
+
+        </div><!-- End .container -->
+    </div>
+    <div class="container">
+        <hr class="mt-1 mb-6">
+    </div><!-- End .container -->
+
+    @await Component.InvokeAsync("RecentArtilcel_Index")
+
+</main><!-- End .main -->

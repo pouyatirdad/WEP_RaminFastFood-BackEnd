@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- begin::theme color -->
+    <meta name="theme-color" content="#3f51b5" />
+    <!-- end::theme color -->
+    <title>
+        @*@await Component.InvokeAsync("ShopName")*@
+    </title>
+    <!-- begin::global styles -->
+    <link rel="stylesheet" href="~/admin/vendors/bundle.css" type="text/css">
+    <link href="~/admin/vendors/dataTable/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/admin/vendors/tagify/tagify.css" rel="stylesheet" />
+    <link href="~/admin/vendors/dropzone/dropzone.css" rel="stylesheet" />
+    <link href="~/admin/vendors/cropper/cropper.min.css" rel="stylesheet" />
+    <!-- end::global styles -->
+
+    <link rel="stylesheet" href="~/admin/vendors/swiper/swiper.min.css">
+
+    <!-- begin::custom styles -->
+    <link rel="stylesheet" href="~/admin/css/app.css" type="text/css">
+    <link rel="stylesheet" href="~/admin/css/custom.css" type="text/css">
+</head>
+<body class="bg-white h-100-vh p-t-0">
+    <!-- begin::page loader-->
+    <div class="page-loader">
+        <div class="spinner-border"></div>
+        <span>در حال بارگذاری ...</span>
+    </div>
+    <!-- end::page loader -->
+    <div class="container h-100-vh">
+        <div class="row align-items-center h-100-vh">
+            <div class="col-lg-6 d-none d-lg-block p-t-b-25">
+                <img class="img-fluid" src="~/admin/media/svg/login.svg" alt="...">
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+    <!-- begin::global scripts -->
+    <script src="~/admin/vendors/bundle.js"></script>
+    <!-- end::global scripts -->
+    <!-- begin::chart -->
+    <script src="~/admin/vendors/charts/chart.min.js"></script>
+    <script src="~/admin/vendors/charts/sparkline.min.js"></script>
+    <script src="~/admin/vendors/circle-progress/circle-progress.min.js"></script>
+    <script src="~/admin/js/examples/charts.js"></script>
+    <!-- end::chart -->
+    <!-- begin::swiper -->
+    <script src="/admin/vendors/swiper/swiper.min.js"></script>
+    <script src="/admin/js/examples/swiper.js"></script>
+    <!-- end::swiper -->
+    <script src="~/admin/vendors/dataTable/jquery.dataTables.min.js"></script>
+    <script src="~/admin/vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/admin/vendors/dataTable/dataTables.responsive.min.js"></script>
+
+    <script src="~/admin/vendors/tagify/tagify.min.js"></script>
+    <script src="~/admin/vendors/tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="~/admin/vendors/dropzone/dropzone.js"></script>
+    <script src="~/admin/vendors/cropper/cropper.min.js"></script>
+    <!-- begin::custom scripts -->
+    <script src="~/admin/js/custom.js"></script>
+    <script src="~/admin/js/app.js"></script>
+</body>
+</html>

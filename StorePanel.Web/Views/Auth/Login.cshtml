@@ -1,0 +1,39 @@
+﻿@model StorePanel.Web.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "_AuthLayout";
+}
+<div class="col-lg-4 offset-lg-1 p-t-b-25">
+    <div class="d-flex justify-content-center align-items-center m-b-20">
+        @*<img src="@(await Component.InvokeAsync("LogoImage"))" class="m-l-15" width="120" alt="">*@
+    </div>
+    <div class="d-flex justify-content-center align-items-center m-b-20">
+        <h3 class="m-0">
+            ورود به پنل
+            @*@await Component.InvokeAsync("ShopName")*@
+        </h3>
+    </div>
+    <form asp-action="Login" asp-controller="Auth">
+        <input type="hidden" asp-for="ReturnUrl" value="@ViewBag.ReturnUrl" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-4">
+            <input type="text" class="form-control form-control-lg" autofocus placeholder="نام کاربری" asp-for="Username">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <input type="password" class="form-control form-control-lg" placeholder="رمز عبور" asp-for="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        @*@Html.ReCaptcha()
+            <recaptcha />*@
+        <button class="btn btn-primary btn-lg btn-block btn-uppercase mb-4" type="submit">ورود</button>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" asp-for="RememberMe" id="customCheck" />
+                <label class="custom-control-label" for="customCheck">به خاطر سپاری</label>
+            </div>
+            <a asp-action="ForgotPassword" id="kt_login_forgot" class="text-muted text-hover-primary">رمز عبور خود را فراموش کرده اید؟</a>
+        </div>
+    </form>
+</div>

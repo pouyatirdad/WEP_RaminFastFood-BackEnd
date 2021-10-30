@@ -1,0 +1,42 @@
+﻿@model List<StorePanel.Web.Areas.Dashboard.ViewModels.NavigationMenuViewModel>
+
+
+<div class="side-menu">
+    <div class="side-menu-body">
+        <ul>
+            <li class="side-menu-divider">فهرست</li>
+            <li><a asp-controller="Home" asp-action="Index" asp-area="Dashboard" id="nav_dashboard"><i class="icon fa fa-home"></i> <span>داشبورد</span> </a></li>
+            @foreach (var item in Model.Where(m => m.Id != 2 && m.Visible == true && m.ParentMenuId == null).OrderBy(m => m.DisplayOrder).ToList())
+            {
+                if (item.ControllerName != null && item.ActionName != null)
+                {
+                    <li>
+                        <a asp-area="Dashboard" asp-controller="@item.ControllerName" asp-action="@item.ActionName" asp-route-root="true" id="nav_@item.ElementIdentifier">
+                            <i class="@item.Icon"></i>
+                            <span>@item.Name</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="javascript:void(0)" id="nav_@item.ElementIdentifier"><i class="@item.Icon"></i> <span>@item.Name</span> </a>
+                        <ul id="subnav_@item.ElementIdentifier">
+                            @foreach (var child in Model.Where(m => m.ParentMenuId == item.Id && m.Visible == true))
+                            {
+                                <li>
+                                    <a id="nav_item_@child.ElementIdentifier"
+                                       asp-area="Dashboard"
+                                       asp-controller="@child.ControllerName"
+                                       asp-action="@child.ActionName"
+                                       asp-route-root="true">@child.Name </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                }
+            }
+        </ul>
+    </div>
+</div>

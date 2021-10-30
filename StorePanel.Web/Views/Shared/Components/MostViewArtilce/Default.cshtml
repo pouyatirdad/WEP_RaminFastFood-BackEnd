@@ -1,0 +1,27 @@
+﻿@model IEnumerable<StorePanel.Core.Models.Article>
+
+
+@if (Model.Any())
+{
+    <div class="widget">
+        <h3 class="widget-title">محبوب ترین اخبار</h3><!-- End .widget-title -->
+
+        <ul class="posts-list">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <figure>
+                        <a href="/blog/Detail/@item.Id">
+                            <img src="../UploadedFiles/Images/@item.Image" alt="@item.Title">
+                        </a>
+                    </figure>
+
+                    <div>
+                        <span>@item.AddedDate</span>
+                        <h4><a href="/blog/Detail/@item.Id">@item.Title</a></h4>
+                    </div>
+                </li>
+            }
+        </ul><!-- End .posts-list -->
+    </div><!-- End .widget -->
+}

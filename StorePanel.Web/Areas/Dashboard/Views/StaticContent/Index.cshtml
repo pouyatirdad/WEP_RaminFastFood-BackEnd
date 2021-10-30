@@ -1,0 +1,422 @@
+﻿@model StorePanel.Core.Models.StaticContent
+@{
+    ViewData["Title"] = "محتوای ثابت";
+}
+<input type="hidden" id="nav_active" value="static_content">
+<input type="hidden" id="nav_item_active" value="static_content">
+<div class="card card-custom card-sticky" id="kt_page_sticky_card">
+    <div class="card-header" style="">
+        <div class="card-title">
+            <h3 class="card-label">
+                محتوای ثابت <i class="mr-2"></i>
+                <small class="">ویرایش محتوای ثابت</small>
+            </h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <!--begin::Form-->
+        <form class="form" asp-action="Index" asp-controller="StaticContent" id="form" enctype="multipart/form-data">
+            @if (ViewBag.Saved == true)
+            {
+                <p class="bg-success text-white text-center p-2" style="border-radius:5px;">ثبت شد</p>
+            }
+
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="InsertDate" />
+            <input type="hidden" asp-for="InsertUser" />
+            <div class="row">
+                <div class="col-xl-2"></div>
+                <div class="col-xl-8">
+                    <div style="margin-top:20px">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </div>
+                    <div class="my-5">
+                        <h3 class="text-dark font-weight-bold mb-10">بنر صفحه اصلی:</h3>
+                        <div class="form-group row">
+                            <label asp-for="BannerTitle" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="BannerTitle" class="form-control form-control-solid" />
+                                <span asp-validation-for="BannerTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="BannerSubTitle" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="BannerSubTitle" class="form-control form-control-solid" />
+                                <span asp-validation-for="BannerSubTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="BannerDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <textarea class="form-control form-control-solid" asp-for="BannerDescription"></textarea>
+                                <span asp-validation-for="BannerDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed my-10"></div>
+                    <div class="my-5">
+                        <h3 class="text-dark font-weight-bold mb-10">مشاوره:</h3>
+                        <div class="form-group row">
+                            <label asp-for="ConsultationTitle" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="ConsultationTitle" class="form-control form-control-solid" />
+                                <span asp-validation-for="ConsultationTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed my-10"></div>
+                    <div class="my-5">
+                        <h3 class="text-dark font-weight-bold mb-10">درباره ما:</h3>
+                        <div class="form-group row">
+                            <label asp-for="AboutUsTitle" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="AboutUsTitle" class="form-control form-control-solid" />
+                                <span asp-validation-for="AboutUsTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="AboutUsSubTitle" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="AboutUsSubTitle" class="form-control form-control-solid" />
+                                <span asp-validation-for="AboutUsSubTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="AboutUsDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <textarea class="form-control form-control-solid" asp-for="AboutUsDescription"></textarea>
+                                <span asp-validation-for="AboutUsDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed my-10"></div>
+                    <div class="my-5">
+                        <h3 class="text-dark font-weight-bold mb-10">خدمات ما:</h3>
+                        <div class="form-group row">
+                            <label asp-for="OurServicesTitle" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="OurServicesTitle" class="form-control form-control-solid" />
+                                <span asp-validation-for="OurServicesTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="OurServicesDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <textarea class="form-control form-control-solid" asp-for="OurServicesDescription"></textarea>
+                                <span asp-validation-for="OurServicesDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed my-10"></div>
+                    <div class="my-5">
+                        <h3 class="text-dark font-weight-bold mb-10">تماس با ما:</h3>
+                        <div class="form-group row">
+                            <label asp-for="ContactUsTitle" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="ContactUsTitle" class="form-control form-control-solid" />
+                                <span asp-validation-for="ContactUsTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="ContactUsDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <textarea class="form-control form-control-solid" asp-for="ContactUsDescription"></textarea>
+                                <span asp-validation-for="ContactUsDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed my-10"></div>
+                    <div class="my-5">
+                        <h3 class="text-dark font-weight-bold mb-10">اطلاعات تماس:</h3>
+                        <div class="form-group row">
+                            <label asp-for="Address" class="col-3"></label>
+                            <div class="col-9">
+                                <input asp-for="Address" class="form-control form-control-solid" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="Phone" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-fax"></i></span></div>
+                                    <input asp-for="Phone" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Mobile" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-phone"></i></span></div>
+                                    <input asp-for="Mobile" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Mobile" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Instagram" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-fax"></i></span></div>
+                                    <input asp-for="Instagram" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Instagram" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Telegram" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-phone"></i></span></div>
+                                    <input asp-for="Telegram" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Telegram" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="WhatsApp" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-phone"></i></span></div>
+                                    <input asp-for="WhatsApp" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="WhatsApp" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Twitter" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-phone"></i></span></div>
+                                    <input asp-for="Twitter" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Twitter" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Email" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-envelope"></i></span></div>
+                                    <input asp-for="Email" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Map" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-map"></i></span></div>
+                                    <input asp-for="Map" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Map" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature1Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature1Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature1Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature1shortDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature1shortDescription" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature1shortDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature2Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature2Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature2Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature2shortDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature2shortDescription" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature2shortDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature3Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature3Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature3Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature3shortDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature3shortDescription" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature3shortDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature4Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature4Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature4Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Feature4shortDescription" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Feature4shortDescription" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Feature4shortDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Counter1Num" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter1Num" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter1Num" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Counter1Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter1Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter1Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Counter2Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter2Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter2Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Counter2Num" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter2Num" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter2Num" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Counter3Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter3Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter3Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Counter3Num" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter3Num" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter3Num" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Counter4Title" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter4Title" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter4Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="Counter4Num" class="col-3"></label>
+                            <div class="col-9">
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mail-bulk"></i></span></div>
+                                    <input asp-for="Counter4Num" class="form-control form-control-solid" />
+                                </div>
+                                <span asp-validation-for="Counter4Num" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <button type="submit" id="submit-btn" class="btn btn-success font-weight-bolder">
+                            <i class="ki ki-check icon-sm"></i>
+                            ذخیره تغییرات
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-xl-2"></div>
+            </div>
+        </form>
+        <!--end::Form-->
+    </div>
+</div>

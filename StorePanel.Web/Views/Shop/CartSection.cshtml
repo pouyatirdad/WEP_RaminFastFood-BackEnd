@@ -1,0 +1,72 @@
+﻿@model StorePanel.Web.Models.CartModel
+
+
+<a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
+   aria-haspopup="true" aria-expanded="false" data-display="static">
+    <div class="icon">
+        <i class="icon-shopping-cart"></i>
+        @if (Model?.CartItems != null && Model.CartItems.Any())
+        {
+            int sum = 0;
+            foreach (var item in Model.CartItems)
+            {
+                sum += item.Quantity;
+            }
+            <span class="cart-count">@sum</span>
+        }
+
+    </div>
+    <p>سبد خرید</p>
+</a>
+
+<div class="dropdown-menu dropdown-menu-right">
+    <div class="dropdown-cart-products">
+
+        @if (Model?.CartItems != null && Model.CartItems.Any())
+        {
+            int sum = 0;
+            foreach (var item in Model.CartItems)
+            {
+                sum += item.Quantity;
+                <div class="product">
+                    <div class="product-cart-details">
+                        <h4 class="product-title">
+                            <a href="product.html">@item.ProductName </a>
+                        </h4>
+                        <span class="cart-product-info">
+                            <span class="cart-product-qty">@item.Quantity x </span>
+                            @item.Price تومان
+                        </span>
+                    </div><!-- End .product-cart-details -->
+
+                    <figure class="product-image-container">
+                        <a href="product.html" class="product-image">
+                            <img src="~\UploadedFiles\Images\@item.Image" alt="product">
+                        </a>
+                    </figure>
+                    <a onclick="RemoveFromCart(@item.Id, @item.MainFeatureId, 'true')" class="btn-remove" title="حذف محصول"><i class="icon-close"></i></a>
+                </div><!-- End .product -->
+            }
+        }
+    </div><!-- End .cart-product -->
+
+    @if (Model?.CartItems != null && Model.CartItems.Any())
+    {
+        <div class="dropdown-cart-total">
+            <span>مجموع</span>
+
+            <span class="cart-total-price">@Model.TotalPrice.ToString("##,###") تومان</span>
+        </div><!-- End .dropdown-cart-total -->
+
+        <div class="dropdown-cart-action">
+            <a asp-action="cart" asp-controller="Shop" class="btn w-100 btn-primary">مشاهده سبد خرید</a>
+        </div><!-- End .dropdown-cart-total -->
+    }
+    else
+    {
+        <h6 class="text-center text-danger mt-2">
+            سبد خرید خالی است
+        </h6>
+    }
+
+</div><!-- End .dropdown-menu -->

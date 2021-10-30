@@ -1,0 +1,37 @@
+﻿@model StorePanel.Core.Models.Offer
+
+<input type="hidden" id="title" value="ویرایش پیشنهاد" />
+<form asp-action="Create" method="post" id="form" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Title" class="control-label col-md-12"></label>
+        <div class="col-md-12">
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>آپلود تصویر</label>
+        <div class="col-md-12">
+            <div class="dropzone" id="dropzone" data-input="Image" data-container="main-image-container" data-x="16" data-y="9"></div>
+        </div>
+    </div>
+    <input type="hidden" asp-for="Image" />
+    <div class="form-group img-container" id="main-image-container" style="display:none">
+        <label>تصویر شاخص</label>
+        <div class="col-md-12">
+            <img class="main-image" />
+            <button type="button" class="btn bts-sm btn-danger remove-image" data-container="main-image-container" data-input="Image">
+                <i class='ti-trash text-white'></i>
+            </button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div style="float:left">
+            <input type="submit" value="ثبت" class="btn btn-primary mr-2" />
+        </div>
+    </div>
+</form>
+<script>
+    new Dropzone("#dropzone")
+</script>

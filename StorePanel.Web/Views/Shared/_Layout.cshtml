@@ -1,0 +1,476 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using StorePanel.Core.Models;
+@inject SignInManager<User> signInManager;
+@inject UserManager<User> userManager;
+
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        @await Component.InvokeAsync("ShopName")
+        -
+        @ViewBag.Title
+    </title>
+    <!-- Favicon -->
+
+    <link rel="shortcut icon" href="@(await Component.InvokeAsync("LogoImage"))">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="~/assets/images/icons/site.webmanifest">
+    <link rel="mask-icon" href="~/assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="~/assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="~/assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width; initial-scale=1; viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+    <!-- possible content values: default, black or black-translucent -->
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent">
+    <partial name="_css" />
+</head>
+
+<body>
+    <div class="preloaderSite">
+        <div class="preloaderSiteItem">
+            <div class="spinner-border text-danger" style="width: 10rem; height: 10rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <header class="header header-2 header-intro-clearance">
+
+            <div class="header-middle">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">فهرست</span>
+                            <i class="icon-bars"></i>
+                        </button>
+
+                        <a href="/" class="logo">
+                            <img src="@(await Component.InvokeAsync("LogoImage"))" alt="Logo" width="105" height="25">
+                        </a>
+                    </div><!-- End .header-left -->
+
+                    <div class="header-center">
+                        <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form asp-action="SearchResult" asp-controller="Shop">
+                                <div class="header-search-wrapper search-wrapper-wide">
+                                    <label for="q" class="sr-only">جستجو</label>
+                                    <input type="search" class="form-control" name="txtstring" id="txtstring"
+                                           placeholder="جستجوی محصول ..." required>
+                                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+                    </div>
+
+                    <div class="header-right">
+                        <div class="account">
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+                            {
+                                <a asp-action="Index" asp-area="Customer" asp-controller="Dashboard" title="My account">
+                                    <div class="icon">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                    <p>حساب کاربری</p>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#signin-modal" data-toggle="modal" title="My account">
+                                    <div class="icon">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                    <p>ورود / ثبت نام</p>
+                                </a>
+                            }
+                        </div><!-- End .compare-dropdown -->
+
+                        <div class="wishlist">
+                            <a asp-action="Wishlist" asp-controller="Shop" title="لیست محصولات مورد علاقه شما">
+                                <div class="icon">
+                                    <i class="icon-heart-o"></i>
+                                    @*<span class="wishlist-count badge">3</span>*@
+                                </div>
+                                <p>لیست علاقه مندی ها</p>
+                            </a>
+                        </div><!-- End .compare-dropdown -->
+
+                        <div class="dropdown cart-dropdown" id="cartSection">
+
+
+
+                        </div><!-- End .cart-dropdown -->
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-middle -->
+
+            <div class="header-bottom sticky-header">
+                <div class="container">
+
+                    <div class="header-center">
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a asp-action="Index" asp-controller="Home">خانه</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="shop" asp-action="Index">فروشگاه</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Blog" asp-action="Index">اخبار</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Home" asp-action="Aboutus">درباره ما</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="ContactUs" asp-action="Index">ارتباط با ما</a>
+                                </li>
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-center -->
+                </div><!-- End .container -->
+            </div><!-- End .header-bottom -->
+        </header><!-- End .header -->
+
+        @RenderBody()
+
+        @await Component.InvokeAsync("FooterData")
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    <div class="mobile-menu-container mobile-menu-light">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+            <form asp-action="SearchResult" asp-controller="Shop" class="mobile-search">
+                <label for="mobile-search" class="sr-only">جستجو</label>
+                <input type="search" class="form-control" name="txtstring" id="mobile-search"
+                       placeholder="جستجو در ..." required>
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            </form>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel"
+                     aria-labelledby="mobile-menu-link">
+                    <nav class="mobile-nav">
+                        <ul class="mobile-menu">
+                            <li class="active">
+                                <a asp-action="Index" asp-controller="Home">خانه</a>
+                            </li>
+                            <li>
+                                <a asp-controller="shop" asp-action="Index">فروشگاه</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Blog" asp-action="Index">اخبار</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Home" asp-action="Aboutus">درباره ما</a>
+                            </li>
+                            <li>
+                                <a asp-controller="ContactUs" asp-action="Index">ارتباط با ما</a>
+                            </li>
+                        </ul>
+                    </nav><!-- End .mobile-nav -->
+                </div><!-- .End .tab-pane -->
+
+            </div><!-- End .tab-content -->
+
+        </div><!-- End .mobile-menu-wrapper -->
+    </div><!-- End .mobile-menu-container -->
+    <!-- Sign in / Register Modal -->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin"
+                                       role="tab" aria-controls="signin" aria-selected="true">ورود</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab"
+                                       aria-controls="register" aria-selected="false">ثبت نام</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                     aria-labelledby="signin-tab">
+                                    <form asp-action="Login" asp-controller="Auth" asp-area="Customer">
+                                        <div class="form-group">
+                                            <label for="singin-email">نام کاربری یا آدرس ایمیل *</label>
+                                            <input type="text" class="form-control" id="singin-email"
+                                                   name="Username" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="singin-password">رمز عبور *</label>
+                                            <input type="password" class="form-control" id="singin-password"
+                                                   name="Password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>ورود</span>
+                                                <i class="icon-long-arrow-left"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="signin-remember">
+                                                <label class="custom-control-label" for="signin-remember">
+                                                    مرا به خاطر
+                                                    بسپار
+                                                </label>
+                                            </div><!-- End .custom-checkbox -->
+
+                                            <a href="#" class="forgot-link">فراموشی رمز عبور؟</a>
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                </div><!-- .End .tab-pane -->
+                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                    <form asp-action="Register" asp-area="Customer" asp-controller="Auth">
+                                        <div class="form-group">
+                                            <label for="register-email">آدرس ایمیل شما *</label>
+                                            <input type="email" class="form-control" id="register-email"
+                                                   name="Email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="register-password">رمز عبور *</label>
+                                            <input type="password" class="form-control" id="register-password"
+                                                   name="Password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>ثبت نام</span>
+                                                <i class="icon-long-arrow-left"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="register-policy"
+                                                       required>
+                                                <label class="custom-control-label" for="register-policy">
+                                                    با
+                                                    <a href="#">قوانین و مقررات </a>موافقم *
+                                                </label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                </div><!-- .End .tab-pane -->
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+    <partial name="_Js" />
+
+    <script>
+        GetCart();
+        function AddToCart(id, mainFeature) {
+            $(".preloaderSite").show();
+            var mainFeatureId = null;
+            if (mainFeature != null) {
+                mainFeatureId = mainFeature;
+            }
+            if (mainFeatureId === null) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Shop/AddToCart?productId=' + id,
+                    success: function (data) {
+                        GetCart();
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        console.log(data);
+                    },
+                    complete: function () {
+                        setTimeout(() => {
+                            $(".preloaderSite").hide();
+                        }, 400)
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Shop/AddToCart?productId=' + id + '&mainFeatureId=' + mainFeatureId,
+                    success: function (data) {
+                        GetCart();
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        console.log(data);
+                    },
+                    complete: function () {
+                        setTimeout(() => {
+                            $(".preloaderSite").hide();
+                        }, 400)
+                    }
+                });
+            }
+        }
+        function RemoveFromCart(id, mainFeatureId, complete) {
+            $(".preloaderSite").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Shop/RemoveFromCart?productId=' + id + '&mainFeatureId=' + mainFeatureId + '&complete=' + complete,
+                success: function (data) {
+                    GetCart();
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                    setTimeout(() => {
+                        $(".preloaderSite").hide();
+                    }, 200)
+                }
+            });
+        }
+        function GetCart() {
+            $.ajax({
+                type: 'GET',
+                url: '/Shop/CartSection',
+                success: function (data) {
+                    $("#cartSection").html(data);
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                }
+            });
+
+        }
+    </script>
+    <script>
+        function AddToWishList(id) {
+            $(".preloaderSite").show();
+            var userIsLoggedIn = '@(User.Identity.IsAuthenticated)';
+            if (userIsLoggedIn === 'False') {
+                modal.addClass("show");
+                modal.css("display", "block");
+                setTimeout(() => {
+                    $(".preloaderSite").hide();
+                    alert("لطفا وارد شوید");
+                }, 400)
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Shop/AddToWishList?productId=' + id,
+                    success: function (data) {
+                        setTimeout(() => {
+                            $(".preloaderSite").hide();
+                        }, 400)
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        setTimeout(() => {
+                            $(".preloaderSite").hide();
+                        }, 400)
+                        console.log(data);
+                    },
+                    complete: function () {
+                        setTimeout(() => {
+                            $(".preloaderSite").hide();
+                        }, 400)
+                    }
+                });
+            }
+        }
+        function removeFromWishList(id) {
+            $(".preloaderSite").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Shop/RemoveFromWishList?productId=' + id,
+                success: function (data) {
+                    GetWishList();
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                    setTimeout(() => {
+                        $(".preloaderSite").hide();
+                    }, 400)
+                }
+            });
+        }
+    </script>
+
+    <script>
+        var modal = $("#signin-modal");
+
+        $("#peyment").click(function (e) {
+            e.preventDefault();
+
+            var userIsLoggedIn = '@(User.Identity.IsAuthenticated)';
+
+            if (userIsLoggedIn === 'False') {
+                modal.addClass("show");
+                modal.css("display", "block");
+            }
+            else
+                location.href = '/Shop/Checkout';
+        });
+        $(".close").click(function (e) {
+            modal.removeClass("show");
+            modal.css("display", "none");
+        });
+
+    </script>
+    <script>
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            deferredPrompt = e;
+        });
+
+        const installApp = document.getElementById('installApp');
+
+        installApp.addEventListener('click', async () => {
+            if (deferredPrompt !== null) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    deferredPrompt = null;
+                }
+            }
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>

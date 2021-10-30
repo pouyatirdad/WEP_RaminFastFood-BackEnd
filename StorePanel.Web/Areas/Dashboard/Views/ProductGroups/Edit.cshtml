@@ -1,0 +1,196 @@
+﻿@model StorePanel.Core.Models.ProductGroup
+@using StorePanel.Core.Models
+@using StorePanel.Infrastructure.Helpers;
+@{
+
+    var Features = ViewBag.Features as List<Feature>;
+    var Brands = ViewBag.Brands as List<Brand>;
+    var ProductGroups = ViewBag.ProductGroups as List<ProductGroup>;
+}
+@{
+    ViewData["Title"] = "افزودن مطلب";
+}
+@section Header {
+    <link href="~/admin/vendors/jstree/jstree.bundle.css" rel="stylesheet" />
+}
+<input type="hidden" id="nav_active" value="article_control">
+<input type="hidden" id="nav_item_active" value="articles">
+<div class="page-header">
+    <div>
+        <h3>@ViewData["Title"]</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index">داشبورد</a></li>
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Articles" asp-action="Index">مطالب</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="col-xl-8">
+    <div class="card">
+        <div class="card-body">
+            <form id="form">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div style="margin-top:20px">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="Title" class="form-control" value="@Model.Title"/>
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label name="BrandIds" class="control-label">برند ها</label>
+                                <div class="col-md-12">
+                                    <select id="Brands" class="js-example-basic-single" multiple dir="rtl" >
+                                        @foreach (var item in Model.ProductGroupBrands)
+                                        {
+                                            <option value="@item.Id" selected="selected">@item.Brand.Name</option>
+                                        }
+                                        @foreach (var item in Brands)
+                                        {
+                                            if (Model.ProductGroupBrands.Any(x => x.BrandId != item.Id))
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span class="text-danger" style="display: none" id="validate_brand">لطفا حداقل یک برند را انتخاب کنید</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="">انتخاب گروه</label>
+                                <div id="ParentGroupId" class="tree-demo">
+                                    <ul>
+                                        <li data-jstree='{ "selected" : true }' id="pg_0">گروه اصلی</li>
+                                        @foreach (var group in ProductGroups.Where(p => p.ParentId == null))
+                                        {
+                                            var result = HierarchyLoop.GetProductGroupHierarchy(group, Model.ParentId, Model.Id);
+                                            @Html.Raw(result)
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>ویژگی های گروه</label>
+                                <select class="js-example-basic-single" multiple dir="rtl" id="ProductGroupFeatures" name="ProductGroupFeatures">
+                                    @foreach (var item in Features)
+                                    {
+                                        if (Model.ProductGroupFeatures.Any(x => x.FeatureId != item.Id))
+                                        {
+                                            <option value="@item.Id">@item.Title</option>
+                                        }
+                                    }
+                                    @foreach (var item in Model.ProductGroupFeatures)
+                                    {
+                                        <option value="@item.Id" selected="selected">@item.Feature.Title</option>
+                                    }
+                                </select>
+
+
+                                <div class="checkbox-list col-lg-12">
+                                    <div class="row">
+                                        <span class="text-danger" style="display: none" id="validate_feature">لطفا حداقل یک ویژگی را انتخاب کنید</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>آپلود تصویر</label>
+                                <div class="col-md-12">
+                                    <div class="dropzone" id="dropzone" data-input="Image" data-container="main-image-container" data-x="16" data-y="9"></div>
+                                </div>
+                            </div>
+                            <input type="hidden" asp-for="Image" />
+                            <div class="form-group img-container" id="main-image-container" style="display:none">
+                                <label>تصویر شاخص</label>
+                                <div class="col-md-12">
+                                    <img class="main-image" />
+                                    <button type="button" class="btn bts-sm btn-danger remove-image" data-container="main-image-container" data-input="Image">
+                                        <i class='ti-trash text-white'></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">انصراف</a>
+                    <input type="submit" value="ثبت" class="btn btn-primary mr-2" style="float:left" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/admin/vendors/jstree/jstree.bundle.js"></script>
+    <script>
+        $("#ParentGroupId").jstree({
+            "core": {
+                "themes": {
+                    "responsive": false
+                }
+            },
+            "types": {
+                "default": {
+                    "icon": "fa fa-box"
+                }
+            },
+            "plugins": ["types"]
+        });
+
+    </script>
+    <script>
+        $("#form").submit(function (e) {
+            e.preventDefault();
+            if (true) {
+                var Title = $("#Title").val();
+                var BrandIds = [];
+                $('#Brands').select2('data').map(function (i) { BrandIds.push(parseInt(i.id)) });
+                var ParentGroupId = 0;
+                var selectedGroup = $("#ParentGroupId").jstree().get_selected()[0]; // ["pg_id"]
+                if (selectedGroup != null || selectedGroup != undefined) {
+                    var selectedGroupArr = selectedGroup.split('_'); // ["pg","id"]
+                    var ParentGroupId = parseInt(selectedGroupArr[1]); // id
+                }
+                var ProductGroupFeatureIds = [];
+
+                $('#ProductGroupFeatures').select2('data').map(function (i) { ProductGroupFeatureIds.push(parseInt(i.id)) });
+
+                $("#validate_brand").hide();
+                $("#validate_brand").hide();
+                if (BrandIds.length <= 0 || ProductGroupFeatureIds.length <= 0) {
+                    if (BrandIds.length <= 0) {
+                        $("#validate_brand").show();
+                    }
+                    if (ProductGroupFeatureIds.length <= 0) {
+                        $("#validate_feature").show();
+                    }
+                }
+                else {
+                    $("#validate_brand").hide();
+                    $("#validate_feature").hide();
+                    var Image = $('#Image').val();
+                    var productGroup = {
+                        Title: Title,
+                        BrandIds: BrandIds,
+                        ParentGroupId: ParentGroupId,
+                        ProductGroupFeatureIds: ProductGroupFeatureIds,
+                        Image:Image
+                    }
+                    console.log(productGroup);
+                    $.post($("#form").attr('action'),productGroup);
+                };
+            }
+        });
+    </script>
+
+}

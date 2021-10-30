@@ -1,0 +1,111 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewBag.Title = "ویرایش پروفایل";
+}
+<input type="hidden" id="nav_active" value="dashboard">
+<input type="hidden" id="nav_item_active" value="dashboard">
+
+<div class="page-header">
+    <div>
+        <h3>@ViewData["Title"]</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index">داشبورد</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" id="form" enctype="multipart/form-data">
+                <div style="margin-top:20px">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <div class="row" style="padding:20px">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label"></label>
+                            <div class="col-md-12">
+                                @{
+                                    var isReservedUser = !(Model.Id != DefaultValues.ADMIN_ID && Model.Id != DefaultValues.SUPER_USER_ID);
+                                    <input asp-for="UserName" class="form-control" disabled="@isReservedUser" />
+                                    <input type="hidden" asp-for="UserName" />
+
+                                }
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label "></label>
+                            <div class="col-md-12">
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Information" class="control-label"></label>
+                            <div class="col-md-12">
+                                <textarea asp-for="Information" class="form-control"></textarea>
+                                <span asp-validation-for="Information" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <div class="col-md-12">
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <div class="col-md-12">
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="control-label"></label>
+                            <div class="col-md-12">
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>آپلود تصویر</label>
+                            <div class="col-md-12">
+                                <div class="dropzone" id="dropzone" data-input="Avatar" data-container="main-image-container" data-x="1" data-y="1"></div>
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="Avatar" />
+                        <div class="form-group img-container" id="main-image-container" style="display:@(string.IsNullOrEmpty(Model.Avatar)?"none":"block")">
+                            <label>آواتار کاربر</label>
+                            <div class="col-md-12">
+                                <img src="@(string.IsNullOrEmpty(Model.Avatar)?null:"/UploadedFiles/Images/"+ Model.Avatar)" class="main-image rounded" />
+                                <button type="button" class="btn bts-sm btn-danger remove-image" data-container="main-image-container" data-input="Avatar">
+                                    <i class='ti-trash text-white'></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer" style="display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center">
+                    <div class="form-footer">
+                        <a href="@Url.Action("Index")" class="btn-cancel ml-2">انصراف</a> |
+                        <input type="submit" value="ثبت" class="btn btn-primary btn-rounded mr-2" />
+                    </div>
+                    <a href="javascript:void(0)" class="btn btn-success text-white"
+                       onclick="openModal('/Dashboard/Users/ResetMyPassword/@Model.Id')">بروزرسانی رمز عبور</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

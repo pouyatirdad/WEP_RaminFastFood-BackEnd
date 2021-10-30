@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en" direction="rtl" dir="rtl" style="direction: rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<link rel="icon" href="@await Component.InvokeAsync("logoImageCU")">*@
+    <title>
+        @*@await Component.InvokeAsync("siteNameCU")*@
+    </title>
+    <!-- begin::global styles -->
+    <link rel="stylesheet" href="/admin/vendors/bundle.css" type="text/css">
+    <link href="~/admin/vendors/dataTable/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/admin/vendors/tagify/tagify.css" rel="stylesheet" />
+    <link href="~/admin/vendors/dropzone/dropzone.css" rel="stylesheet" />
+    <link href="~/admin/vendors/cropper/cropper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/admin/vendors/select2/css/select2.min.css" type="text/css">
+    <!-- end::select2 -->
+    <!-- begin::range slider -->
+    <link rel="stylesheet" href="~/admin/vendors/range-slider/css/ion.rangeSlider.min.css" type="text/css">
+    <!-- end::range slider -->
+    <!-- begin::tagsinput -->
+    <link rel="stylesheet" href="~/admin/vendors/tagsinput/bootstrap-tagsinput.css" type="text/css">
+    <!-- end::global styles -->
+
+    <link rel="stylesheet" href="~/admin/vendors/swiper/swiper.min.css">
+
+    <!-- begin::custom styles -->
+    <link rel="stylesheet" href="~/admin/css/app.css" type="text/css">
+    <link rel="stylesheet" href="~/admin/css/custom.css" type="text/css">
+    <!-- end::custom styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- begin::favicon -->
+    @*<link rel="shortcut icon" href="@await Component.InvokeAsync("logoImageCU")">*@
+    <!-- end::favicon -->
+    <!-- begin::theme color -->
+    <meta name="theme-color" content="#1b1b1b" />
+    <!-- end::theme color -->
+    @RenderSection("Header", required: false)
+</head>
+<body>
+
+    <!-- begin::page loader-->
+    <div class="page-loader">
+        <div class="spinner-border"></div>
+        <span>در حال بارگذاری ...</span>
+    </div>
+    <!-- end::page loader -->
+    <!-- begin::sidebar -->
+    <!-- end::sidebar -->
+    <!-- begin::side menu -->
+
+    <div class="side-menu">
+        <div class="side-menu-body">
+            <ul>
+                <li class="side-menu-divider">فهرست</li>
+                <li><a asp-controller="Dashboard" asp-action="Index" asp-area="Customer" id="nav_dashboard"><i class="icon fa fa-home"></i> <span>داشبورد</span> </a></li>
+                <li>
+                    <form id="logoutForm" class="form-inline" asp-area="Customer" asp-action="LogOff" asp-controller="Auth" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button id="logout" type="submit"
+                                style="cursor:pointer"
+                                class="text-danger dropdown-item">
+                            خروج
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end::side menu -->
+    <!-- begin::navbar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+
+            <div class="header-logo">
+                <a href="#">
+                    @*<img src="@await Component.InvokeAsync("logoImageCU")" alt="...">
+                    <span class="logo-text d-none d-lg-block">پنل @await Component.InvokeAsync("siteNameCU")</span>*@
+                </a>
+            </div>
+
+
+
+        </div>
+    </nav>
+    <!-- end::navbar -->
+    <!-- begin::main content -->
+    <main class="main-content">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+    <!-- end::main content -->
+    <!-- end::main content -->
+    <!-- begin::global scripts -->
+    <script src="~/admin/vendors/bundle.js"></script>
+    <!-- end::global scripts -->
+    <!-- begin::chart -->
+    <script src="~/admin/vendors/charts/chart.min.js"></script>
+    <script src="~/admin/vendors/charts/sparkline.min.js"></script>
+    <script src="~/admin/vendors/circle-progress/circle-progress.min.js"></script>
+    <script src="~/admin/js/examples/charts.js"></script>
+    <!-- end::chart -->
+    <!-- begin::swiper -->
+    <script src="/admin/vendors/swiper/swiper.min.js"></script>
+    <script src="/admin/js/examples/swiper.js"></script>
+    <!-- end::swiper -->
+    <script src="~/admin/vendors/dataTable/jquery.dataTables.min.js"></script>
+    <script src="~/admin/vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/admin/vendors/dataTable/dataTables.responsive.min.js"></script>
+
+    <script src="~/admin/vendors/tagify/tagify.min.js"></script>
+    <script src="~/admin/vendors/tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="~/admin/vendors/dropzone/dropzone.js"></script>
+    <script src="~/admin/vendors/cropper/cropper.min.js"></script>
+    <!-- begin::custom scripts -->
+    <script src="~/admin/js/custom.js"></script>
+    <script src="~/admin/js/app.js"></script>
+    <!-- begin::select2 -->
+    <script src="~/admin/vendors/select2/js/select2.min.js"></script>
+    <script src="~/admin/js/examples/select2.js"></script>
+
+    <script src="~/admin/vendors/tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="~/admin/js/examples/tagsinput.js"></script>
+    <!-- end::custom scripts -->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

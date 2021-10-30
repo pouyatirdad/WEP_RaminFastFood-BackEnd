@@ -1,0 +1,15 @@
+﻿@model IEnumerable<StorePanel.Core.Models.Slider>
+
+<div class="intro-slider-container">
+    <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl"
+         data-owl-options='{"nav": false, "rtl": true}'>
+        @foreach (var item in Model)
+        {
+            <div class="intro-slide" style="background-image: url(/UploadedFiles/Images/@item.Image); ">
+
+            </div><!-- End .intro-slide -->
+        }
+    </div><!-- End .owl-carousel owl-simple -->
+
+    <span class="slider-loader text-white"></span><!-- End .slider-loader -->
+</div><!-- End .intro-slider-container -->

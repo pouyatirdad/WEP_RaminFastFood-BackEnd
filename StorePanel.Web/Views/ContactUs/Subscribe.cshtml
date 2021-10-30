@@ -1,0 +1,30 @@
+﻿@model StorePanel.Core.Models.StaticContent
+
+
+<div class="footer-newsletter bg-image"
+     style="background-image: url(/assets/Newimage/widedimageforbottom.jpg)">
+    <div class="container">
+        <div class="heading text-center">
+            <h3 class="title text-center">عضویت در خبرنامه</h3><!-- End .title -->
+            <!-- End .title-desc -->
+        </div><!-- End .heading -->
+
+        <div class="row">
+            <div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <form asp-action="Subscribe" asp-controller="ContactUs">
+                    <div class="input-group">
+                        <input type="email" asp-for="Email" class="form-control" placeholder="آدرس ایمیل خود را وارد کنید"
+                               aria-label="Email Adress" aria-describedby="newsletter-btn" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit"
+                                    id="newsletter-btn">
+                                <span>عضویت</span><i class="icon-long-arrow-left"></i>
+                            </button>
+                        </div><!-- .End .input-group-append -->
+                    </div><!-- .End .input-group -->
+                </form>
+            </div><!-- End .col-sm-10 offset-sm-1 col-lg-6 offset-lg-3 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+</div><!-- End .footer-newsletter bg-image -->
+

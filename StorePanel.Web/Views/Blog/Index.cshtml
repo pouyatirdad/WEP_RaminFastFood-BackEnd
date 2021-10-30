@@ -1,0 +1,126 @@
+﻿
+
+@{
+    ViewData["Title"] = "اخبار";
+}
+
+
+@model IEnumerable<StorePanel.Core.Models.Article>
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">اخبار<span></span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">اخبار</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="container">
+            @if (Model.Any())
+            {
+
+                <div class="row">
+                    <div class="col-lg-9">
+
+                        @foreach (var item in Model)
+                        {
+
+                            <article class="entry entry-list">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <figure class="entry-media">
+                                            <a href="/blog/Detail/@item.Id">
+                                                <img src="../UploadedFiles/Images/@item.Image" alt="@item.Title">
+                                            </a>
+                                        </figure><!-- End .entry-media -->
+                                    </div><!-- End .col-md-5 -->
+
+                                    <div class="col-md-7">
+                                        <div class="entry-body">
+                                            <div class="entry-meta">
+                                                <span class="entry-author">
+                                                    نویسنده : <a href="#">@item.User</a>
+                                                </span>
+                                                <span class="meta-separator">|</span>
+                                                <a href="#">@item.AddedDate</a>
+                                                <span class="meta-separator">|</span>
+                                                <a href="#">@item.ViewCount دیدگاه</a>
+                                            </div><!-- End .entry-meta -->
+
+                                            <h2 class="entry-title">
+                                                <a href="/blog/Detail/@item.Id">
+                                                    @item.Title
+                                                </a>
+                                            </h2><!-- End .entry-title -->
+                                            @*
+                                                @if(item.ArticleTags.Any())
+                                                {
+                                                    <div class="entry-cats">
+                                                        @foreach (var tags in item.ArticleTags)
+                                                        {
+                                                            <a href="#">@tags.Tag</a>
+                                                        }
+                                                    </div><!-- End .entry-cats -->
+                                                }
+                                            *@
+                                            <div class="entry-content">
+                                                <p>
+                                                    @item.ShortDescription
+                                                </p>
+                                                <a href="/blog/Detail/@item.Id" class="read-more">
+                                                    ادامه
+                                                    خواندن
+                                                </a>
+                                            </div><!-- End .entry-content -->
+                                        </div><!-- End .entry-body -->
+                                    </div><!-- End .col-md-7 -->
+                                </div><!-- End .row -->
+                            </article><!-- End .entry -->
+                        }
+
+                        <pager link-url="/blog/index" page="@ViewBag.PageID" page-size="@ViewBag.PageSize" skip-forward-back-navigation="Disabled" first-last-navigation="Disabled" previous-page-text="قبل" next-page-text="بعد" total-items="@ViewBag.All"></pager>
+
+                    </div><!-- End .col-lg-9 -->
+
+                    <aside class="col-lg-3">
+                        <div class="sidebar">
+                            <div class="widget widget-search">
+                                <h3 class="widget-title">جستجو</h3><!-- End .widget-title -->
+
+                                <form asp-controller="Blog" asp-action="Search">
+                                    <label for="ws" class="sr-only">جستجوی اخبار</label>
+                                    <input type="search" class="form-control" name="ws" id="ws"
+                                           placeholder="جستجوی خبر مورد نظر" required>
+                                    <button type="submit" class="btn">
+                                        <i class="icon-search"></i><span class="sr-only">جستجو</span>
+                                    </button>
+                                </form>
+                            </div><!-- End .widget -->
+
+                            @await Component.InvokeAsync("ArticleCategory")
+
+                            @await Component.InvokeAsync("MostViewArtilce")
+
+                            @await Component.InvokeAsync("Artilcetags")
+
+                        </div><!-- End .sidebar -->
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            }
+            else
+            {
+                <h2 class="text-danger mx-auto text-center">
+                    متاسفانه موردی وجود ندارد!
+                </h2>
+            }
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->

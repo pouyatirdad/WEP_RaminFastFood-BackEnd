@@ -1,0 +1,164 @@
+﻿@model StorePanel.Core.Models.StaticContent
+
+
+    <footer class="footer footer-2">
+        <div class="icon-boxes-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-rocket"></i>
+                            </span>
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-ti
+                                    tle">@Model.Feature1Title</h3><!-- End .icon-box-title -->
+                                <p>@Model.Feature1shortDescription</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-rotate-left"></i>
+                            </span>
+
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-title">@Model.Feature2Title</h3><!-- End .icon-box-title -->
+                                <p>@Model.Feature2shortDescription</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-info-circle"></i>
+                            </span>
+
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-title">@Model.Feature3Title</h3>
+                                <!-- End .icon-box-title -->
+                                <p>@Model.Feature3shortDescription</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-life-ring"></i>
+                            </span>
+
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-title">@Model.Feature4Title</h3><!-- End .icon-box-title -->
+                                <p>@Model.Feature4shortDescription</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .icon-boxes-container -->
+
+                <partial  name="/Views/ContactUs/Subscribe.cshtml" />
+
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="widget widget-about">
+                            <img src="@(await Component.InvokeAsync("LogoImage"))" class="footer-logo" alt="Footer Logo"
+                                 width="105" height="25">
+                            <p>
+                                @Model.AboutUsDescription
+                            </p>
+
+
+                            <div class="widget-about-info">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <span class="widget-about-title">سوالی دارید؟ 7روز هفته/24ساعته</span>
+                                        <a href="tel:@Model.Phone">@Model.Phone</a>
+                                        <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript"></script>
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </div>
+
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">لینک های مفید</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="about.html">درباره ما</a></li>
+                                <li><a href="#">خدمات</a></li>
+                                <li><a href="#">نحوه خرید</a></li>
+                                <li><a href="faq.html">سوالات متداول</a></li>
+                                <li><a href="contact.html">تماس با ما</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-2 -->
+
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">خدمات مشتری</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">شیوه پرداخت</a></li>
+                                <li><a href="#">گارانتی بازگشت وجه</a></li>
+                                <li><a href="#">شیوه ارسال محصولات</a></li>
+                                <li><a href="#">قوانین و مقررات</a></li>
+                                <li><a href="#">خط مشی</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-2 -->
+
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">حساب کاربری</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">ورود</a></li>
+                                <li><a href="cart.html">سبد خرید</a></li>
+                                <li><a href="#">لیست علاقه مندی ها</a></li>
+                                <li><a href="#">پیگیری سفارشات</a></li>
+                                <li><a href="#">راهنما</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-2 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">
+                    تمامی حقوق برای
+                    <a target="_blank" href="https://webpersian.co">
+                        وب پرشین
+                    </a>
+                    محفوظ است
+                </p>
+                <!-- End .footer-copyright -->
+
+                <div class="social-icons social-icons-color">
+                    <span class="social-label">شبکه های اجتماعی</span>
+                    <a href="https://@Model.Twitter" class="social-icon social-twitter" title="توییتر" target="_blank">
+                        <i class="icon-twitter"></i>
+                    </a>
+                    <a href="https://@Model.Instagram" class="social-icon social-instagram" title="اینستاگرام" target="_blank">
+                        <i class="icon-instagram"></i>
+                    </a>
+                    <a href="https://@Model.WhatsApp" class="social-icon social-youtube" title="واتس اپ" target="_blank">
+                        <i class="icon-youtube"></i>
+                    </a>
+                    <a href="https://@Model.Telegram" class="social-icon social-pinterest" title="تلگرام" target="_blank">
+                        <i class="icon-pinterest"></i>
+                    </a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->

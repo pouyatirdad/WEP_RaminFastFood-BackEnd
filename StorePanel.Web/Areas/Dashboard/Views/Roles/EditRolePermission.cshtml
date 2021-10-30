@@ -1,0 +1,98 @@
+﻿@model List<NavigationMenuViewModel>
+@{
+    ViewData["Title"] = "ویرایش دسترسی ها";
+}
+<input type="hidden" id="nav_active" value="auth_control">
+<input type="hidden" id="nav_item_active" value="roles">
+@using StorePanel.Web.Helpers
+@section Header {
+    <link href="~/admin/vendors/jstree/jstree.bundle.css" rel="stylesheet" />
+}
+<div class="col-lg-6">
+    <div class="card card-custom gutter-b">
+        <div class="card-header">
+            <h3 class="card-title">
+                دسترسی نقش : @ViewBag.RoleName
+            </h3>
+        </div>
+        <form method="post" id="form">
+            <div style="padding:20px">
+                <div id="jstree" class="tree-demo">
+                    <ul>
+                        @foreach (var item in Model.Where(m => m.ParentMenuId == null))
+                        {
+                            <li data-jstree='{"opened": true, "selected" : @(item.Permitted.ToString().ToLower()) }' id="@item.Id">
+                                @item.Name
+                                @if (Model.Any(m => m.ParentMenuId == item.Id))
+                                {
+                                    <ul>
+                                        @foreach (var child in Model.Where(m => m.ParentMenuId == item.Id))
+                                        {
+
+                                            var data = RecursiveMethods.GetPermissionsTree(Model.Where(m => m.ParentMenuId != null).ToList(), child);
+                                            @Html.Raw(data);
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <br />
+            <div class="card-footer">
+                    <div class="form-footer">
+                        <a href="@Url.Action("Index")" class="btn-cancel ml-2">انصراف</a> |
+                        <input type="submit" value="ذخیره تغییرات" class="btn btn-primary btn-rounded mr-2" />
+                    </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/admin/vendors/jstree/jstree.bundle.js"></script>
+    <script>
+       var tree = $("#jstree").jstree({
+            "plugins": ["checkbox", "types"],
+            "core": {
+                "themes": {
+                    "responsive": false
+                }
+           },
+           "checkbox": {
+               "three_state": false,
+           },
+           "types": {
+               "default": {
+                   "icon": "fa fa-folder text-warning"
+               },
+               "file": {
+                   "icon": "fa fa-file  text-warning"
+               }
+           },
+       });
+        $("#form").submit(function (event) {
+            event.preventDefault();
+            var selectedElmsIds = [];
+            var selectedElms = $('#jstree').jstree("get_selected", true);
+            $.each(selectedElms, function () {
+                selectedElmsIds.push(this.id);
+            });
+
+            //// Mark undetermined as selected
+            //var indeterminedElms = $('#jstree').jstree("get_undetermined", true);
+            //$.each(indeterminedElms, function () {
+            //    selectedElmsIds.push(this.id);
+            //});
+            console.log(selectedElmsIds);
+            var selectedStr = "";
+            if (selectedElmsIds.length > 0) {
+                selectedStr = selectedElmsIds.join();
+            }
+            $.post("/Admin/Roles/EditRolePermission/@ViewBag.RoleID?selectedPermissions=" + selectedStr,
+                function (result) {
+                    location.href = "@Url.Action("Index","Roles")";
+                });
+        });
+    </script>
+}

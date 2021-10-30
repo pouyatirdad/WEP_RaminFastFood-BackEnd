@@ -1,0 +1,16 @@
+﻿@model IEnumerable<StorePanel.Core.Models.Tag>
+
+@if (Model.Any())
+{
+
+    <div class="widget">
+        <h3 class="widget-title">برچسب ها</h3><!-- End .widget-title -->
+
+        <div class="tagcloud">
+            @foreach (var item in Model)
+            {
+                <a href="#">@item.Title</a>
+            }
+        </div><!-- End .tagcloud -->
+    </div><!-- End .widget -->
+}

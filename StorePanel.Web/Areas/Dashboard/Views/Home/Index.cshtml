@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="page-header">
+    <div>
+        <h3>داشبورد</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">داشبورد</a></li>
+                <li class="breadcrumb-item active" aria-current="page">پیش فرض</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- end::page header -->
+
+@await Component.InvokeAsync("DashboardInfo")
+
+
+
+
+
+
+

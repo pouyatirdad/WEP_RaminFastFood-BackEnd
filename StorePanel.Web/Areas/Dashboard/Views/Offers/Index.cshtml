@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "پیشنهاد ها";
+}
+<input type="hidden" id="nav_active" value="products_control">
+<input type="hidden" id="nav_item_active" value="brands">
+
+<div class="page-header">
+    <div>
+        <h3>@ViewData["Title"]</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index">داشبورد</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+    </div>
+    <validate-permission asp-controller="Offers" asp-action="Create">
+            <a onclick="openModal('/Dashboard/Offers/Create')" class="btn btn-success text-white font-weight-bolder">
+                رکورد جدید
+            </a>
+    </validate-permission>
+</div>
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                @ViewData["Title"]
+            </h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="datatable" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>نام</th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(function () {
+            @if (ViewBag.Root != null && ViewBag.Root != false)
+            {
+                <text>
+                    localStorage.removeItem('DataTables_datatable_' + window.location.pathname);
+                </text>
+            }
+            var table = $('#datatable').DataTable({
+                ajax: {
+                    url: '/Dashboard/Offers/LoadGrid',
+                    type: "POST",
+                },
+                stateSave: true,
+                order: [0,"desc"], // descending order with first column witch is hidden id
+                columnDefs: [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                columns: [
+                    { data: "Id" },
+                    { data: "Title" },
+                    {
+                        data: "Id",
+                        responsivePriority: -1,
+                        render: function (data, type, row) {
+                            var content = "";
+                            @{
+                                if (await PermissionHelper.UserHasPermission("Offers", "Edit"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon mr-2' onclick="openModal('/Dashboard/Offers/Edit/${row.Id}')">\
+                                        <i class='far fa-edit text-primary'></i>\
+                                        </a>\
+                                        `;
+                                    content += element;
+                                    </text>
+                                }
+                                 if (await PermissionHelper.UserHasPermission("Offers", "Delete"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Dashboard/Offers/Delete/${row.Id}')">\
+                                        <i class='far fa-trash-alt text-danger'></i>\
+                                        </a>\
+                                        `;
+                                    content += element;
+                                    </text>
+                                }
+                             }
+                            return content;
+                        },
+                        width:"200px",
+                        orderable: false
+                    },
+
+                ],
+            });
+        });
+    </script>
+}

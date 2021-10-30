@@ -1,0 +1,88 @@
+﻿@model StorePanel.Core.Models.Invoice
+@{
+    ViewData["Title"] = "ویرایش سفارش";
+}
+<input type="hidden" id="nav_active" value="article_control">
+<input type="hidden" id="nav_item_active" value="articles">
+<div class="page-header">
+    <div>
+        <h3>@ViewData["Title"]</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index">داشبورد</a></li>
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Articles" asp-action="Index">مطالب</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="col-xl-8">
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div style="margin-top:20px">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="CustomerName" class="control-label"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="CustomerName" class="form-control" />
+                                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="GeoDivisionId" class="control-label">استان</label>
+                                <div class="col-md-12">
+                                    <select asp-for="GeoDivisionId" asp-items="@ViewData["GeoDivisionId"] as List<SelectListItem>" class="form-control"></select>
+                                    <span asp-validation-for="GeoDivisionId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Phone"></label>
+                                <div class="col-md-12">
+                                    <input class="form-control" asp-for="Phone"/>
+                                    <span asp-validation-for="Phone" class="form-text text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address"></label>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" asp-for="Address" rows="50"></textarea>
+                                    <span asp-validation-for="Address" class="form-text text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" asp-for="IsPayed">
+                                    <label class="form-check-label">
+                                        پرداخت شده
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TotalPrice"></label>
+                                <div class="col-md-12">
+                                    <input class="form-control" asp-for="TotalPrice"/>
+                                    <span asp-validation-for="TotalPrice" class="form-text text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">انصراف</a>
+                    <input type="submit" value="ثبت" class="btn btn-primary mr-2" style="float:left" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/config.js"></script>
+}

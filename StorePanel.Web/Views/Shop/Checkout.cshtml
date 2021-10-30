@@ -1,0 +1,155 @@
+﻿@model StorePanel.Web.Models.CheckoutViewModel
+@using StorePanel.Core.Models
+@{
+
+    var GeoDivisions = ViewBag.GeoDivisionId as List<GeoDivision>;
+
+
+}
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">صفحه پرداخت<span>فروشگاه</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item"><a href="#">فروشگاه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">صفحه پرداخت</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                <div class="checkout-discount">
+                    <form action="#">
+                        <input type="text" class="form-control" required id="checkout-discount-input">
+                        <label for="checkout-discount-input" class="text-truncate">
+                            کد تخفیف دارید؟ <span>
+                                برای
+                                وارد کردن کد تخفیف خود اینجا کلیک کنید
+                            </span>
+                        </label>
+                    </form>
+                </div><!-- End .checkout-discount -->
+                <form asp-action="Checkout" asp-controller="Shop">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h2 class="checkout-title">جزئیات صورت حساب</h2><!-- End .checkout-title -->
+                            <input type="hidden" asp-for="Form.InvoiceNumber" value="@Model.Form.InvoiceNumber" />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label asp-for="Form.Name"></label>
+                                    <input asp-for="Form.Name" type="text" class="form-control" required>
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6">
+
+
+                                    <label>شهر *</label>
+                                    <select name="GeoDivisionId" class="form-control" required>
+                                        @foreach (var item in GeoDivisions)
+                                        {
+                                            <option value="@item.Id">@item.Title</option>
+                                        }
+                                    </select>
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label asp-for="Form.Address"></label>
+                                    <input asp-for="Form.Address" type="text" class="form-control"
+                                           required>
+
+                                </div><!-- End .col-sm-12 -->
+
+                            </div><!-- End .row -->
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label asp-for="Form.PostalCode">کد پستی *</label>
+                                    <input asp-for="Form.PostalCode" type="text" class="form-control" required>
+                                </div><!-- End .col-sm-6 -->
+
+                                <div class="col-sm-6">
+                                    <label asp-for="Form.Phone">تلفن *</label>
+                                    <input asp-for="Form.Phone" type="tel" class="form-control" required>
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+
+                            <label asp-for="Form.Email">ایمیل *</label>
+                            <input asp-for="Form.Email" type="email" class="form-control" required>
+
+                            <label asp-for="Form.Message">توضیحات (اختیاری)</label>
+                            <textarea asp-for="Form.Message" class="form-control" cols="30" rows="4"
+                                      placeholder="شما میتوانید توضیحات اضافی خود را اینجا بنویسید"></textarea>
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3">
+                            <div class="summary">
+                                <h3 class="summary-title">سفارش شما</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>محصول</th>
+                                            <th class="text-left">جمع</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var item in Model.Cart.CartItems)
+                                        {
+                                            <tr>
+                                                <td><a asp-action="Detail" asp-controller="Shop" asp-route-Id="@item.Id">@item.ProductName (*@item.Quantity)</a></td>
+                                                <td class="text-left">@item.Price.ToString("##,###") تومان</td>
+                                            </tr>
+                                        }
+
+                                        <tr class="summary-subtotal">
+                                            <td>جمع سبد خرید</td>
+                                            <td class="text-left">@Model.Cart.TotalPrice.ToString("##,###") تومان</td>
+                                        </tr><!-- End .summary-subtotal -->
+                                        <tr>
+                                            <td>شیوه ارسال : </td>
+                                            <td class="text-left">ارسال رایگان</td>
+                                        </tr>
+                                        <tr class="summary-total">
+                                            <td>مبلغ قابل پرداخت :</td>
+                                            <td class="text-left">@Model.Cart.TotalPrice.ToString("##,###") تومان</td>
+                                        </tr><!-- End .summary-total -->
+                                    </tbody>
+                                </table><!-- End .table table-summary -->
+
+                                <div class="accordion-summary" id="accordion-payment">
+                                    <div class="card">
+                                        <div class="card-header" id="heading-1">
+                                            <h2 class="card-title">
+                                                <a role="button" data-toggle="collapse" href="#collapse-1"
+                                                   aria-expanded="true" aria-controls="collapse-1">
+                                                    درگاه زرین پال
+                                                </a>
+                                            </h2>
+                                        </div><!-- End .card-header -->
+                                        <div id="collapse-1" class="collapse show" aria-labelledby="heading-1"
+                                             data-parent="#accordion-payment">
+                                            <div class="card-body">
+                                                <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript"></script>
+                                            </div><!-- End .collapse -->
+                                        </div><!-- End .card -->
+                                    </div><!-- End .accordion -->
+
+                                    <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                        <span class="btn-text">ثبت</span>
+                                        <span class="btn-hover-text">پرداخت</span>
+                                    </button>
+                                </div><!-- End .summary -->
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                </form>
+            </div><!-- End .container -->
+        </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->

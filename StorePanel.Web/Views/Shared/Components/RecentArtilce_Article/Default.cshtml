@@ -1,0 +1,24 @@
+﻿@model IEnumerable<StorePanel.Core.Models.Article>
+
+<div class="widget">
+    <h3 class="widget-title">محبوب ترین اخبار</h3><!-- End .widget-title -->
+
+    <ul class="posts-list">
+        @foreach (var item in Model)
+        {
+            <li>
+                <figure>
+                    <a href="#">
+                        <img src="~\UploadedFiles\Images\@item.Image" alt="post">
+                    </a>
+                </figure>
+
+                <div>
+                    <span>22 فروردین 1399</span>
+                    <h4><a asp-action="Detail" asp-controller="Blog" asp-route-Id="@item.Id">@item.ShortDescription</a></h4>
+                </div>
+            </li>
+
+        }
+    </ul><!-- End .posts-list -->
+</div><!-- End .widget -->

@@ -1,0 +1,72 @@
+﻿@model StorePanel.Web.Areas.Dashboard.ViewModels.DashboardInfoViewModel
+
+<div class="row">
+    <div class="col-lg-3 col-sm-12">
+
+        <div class="card DashboardCards ">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between">
+                    تعداد مشتریان
+                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="m-b-0 font-weight-800 primary-font">@Model.CustomerCount</h2>
+                    <div class="icon-block icon-block-xl icon-block-floating icon-block-outline-danger">
+                        <i class="ti-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-3 col-md-12">
+
+        <div class="card DashboardCards bg-primary">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between">
+                    تعداد محصولات
+                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="m-b-0 font-weight-800 primary-font">@Model.ProductCount</h2>
+                    <div class="icon-block icon-block-xl icon-block-floating icon-block-outline-white opacity-5">
+                        <i class="ti-bar-chart-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-3 col-md-12">
+
+        <div class="card DashboardCards ">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between">
+                   تعداد سفارشات
+                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="m-b-0 font-weight-800 primary-font">@Model.InvoiceCount</h2>
+                    <div class="icon-block icon-block-xl icon-block-floating icon-block-outline-danger">
+                        <i class="ti-shopping-cart-full"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-3 col-md-12">
+
+        <div class="card DashboardCards  bg-success">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between">
+                    فروش کل
+                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="m-b-0 font-weight-800 primary-font">@Model.TotalSell.ToString("##,###") تومان</h2>
+                    <div class="icon-block icon-block-xl icon-block-floating icon-block-outline-white opacity-5">
+                        <i class="ti-money"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

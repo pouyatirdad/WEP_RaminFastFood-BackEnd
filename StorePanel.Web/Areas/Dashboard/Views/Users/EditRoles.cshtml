@@ -1,0 +1,37 @@
+﻿@model List<RoleViewModel>
+@{
+    ViewData["Title"] = "Edit Roles";
+}
+
+<div class="col-lg-6">
+    <div class="card card-custom gutter-b">
+        <div class="card-header">
+            <h3 class="card-title">
+                نقش های کاربر : @ViewBag.Email
+            </h3>
+        </div>
+        @using (Html.BeginForm())
+        {
+
+            <div style="padding:20px">
+                <ul style="list-style-type: none;">
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        <li>
+                            <input type="checkbox" asp-for="@Model[i].Selected" />
+                            <label style="margin-left:10px;" asp-for="@Model[i].Selected">@Model[i].Name</label>
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                        </li>
+                    }
+                </ul>
+            </div>
+            <br />
+            <div class="card-footer">
+                <input type="hidden" name="userId" id="userId" value="@ViewBag.UserId" />
+                <a href="@Url.Action("Index")" class="btn btn-secondary">انصراف</a>
+                <input type="submit" value="ذخیره تغییرات" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>

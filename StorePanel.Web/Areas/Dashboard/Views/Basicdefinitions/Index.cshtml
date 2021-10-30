@@ -1,0 +1,84 @@
+﻿@model StorePanel.Core.Models.Basicdefinitions
+
+@{
+    ViewData["Title"] = "تعاریف اولیه";
+}
+<input type="hidden" id="nav_active" value="article_control">
+<input type="hidden" id="nav_item_active" value="articles">
+<div class="page-header">
+    <div>
+        <h3>@ViewData["Title"]</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index">داشبورد</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="col-xl-8">
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div style="margin-top:20px">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                        @if (Model != null)
+                        {
+                        <input type="hidden" value="@Model.Id" asp-for="Id" />
+                        }
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="ZarinPalApi" class="control-label"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="ZarinPalApi" class="form-control" />
+                                    <span asp-validation-for="ZarinPalApi" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="NameShop" class="control-label"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="NameShop" class="form-control" />
+                                    <span asp-validation-for="NameShop" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>آپلود لگو</label>
+                            <div class="col-md-12">
+                                <div class="dropzone" id="dropzone" data-input="Image" data-container="main-image-container" data-x="16" data-y="9"></div>
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="Logo" />
+                        <div class="form-group img-container" id="main-image-container" style="display:none">
+                            <label>تصویر شاخص</label>
+                            <div class="col-md-12">
+                                <img class="main-image" />
+                                <button type="button" class="btn bts-sm btn-danger remove-image" data-container="main-image-container" data-input="Image">
+                                    <i class='ti-trash text-white'></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">انصراف</a>
+                    <input type="submit" value="ثبت" class="btn btn-primary mr-2" style="float:left" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/config.js"></script>
+}

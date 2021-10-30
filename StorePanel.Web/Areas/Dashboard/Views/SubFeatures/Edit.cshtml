@@ -1,0 +1,29 @@
+﻿@model StorePanel.Core.Models.SubFeature
+
+<input type="hidden" id="title" value="ایجاد ویژگی" />
+<form asp-action="Edit" method="post" id="form" asp-antiforgery="true">
+    <input type="hidden" asp-for="FeatureId" value="@ViewBag.featureId" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Value" class="control-label col-md-12"></label>
+        <div class="col-md-12">
+            <input asp-for="Value" class="form-control" />
+            <span asp-validation-for="Value" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="OtherInfo" class="control-label col-md-12"></label>
+        <div class="col-md-12">
+            <input asp-for="OtherInfo" class="form-control" />
+            <span asp-validation-for="OtherInfo" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div style="float:left">
+            <input type="submit" value="ثبت" class="btn btn-primary mr-2" />
+        </div>
+    </div>
+</form>
+<script>
+    $.validator.unobtrusive.parse("#form");
+</script>
